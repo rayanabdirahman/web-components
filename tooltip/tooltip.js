@@ -5,6 +5,18 @@ class Tooltip extends HTMLElement {
   constructor() {
     super();
     this._tooltipContainer;
+
+    // set default values for element attributes
+    this._tooltipText = "Text attribute needs to be set on element";
+
+    // attach shadow DOM
+    this.attachShadow({ mode: "open" });
+
+    // get tooltip template
+    const template = document.querySelector("#tooltip-template");
+
+    // append template to shadow DOM
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   /**
@@ -13,9 +25,15 @@ class Tooltip extends HTMLElement {
    */
   connectedCallback() {
     console.log("Attached");
+
+    // Get Element text attributes
+    if (this.hasAttribute("text")) {
+      // override default value for text attribute
+      this._tooltipText = this.getAttribute("text");
+    }
+
     // creating a span element to show tooltip icon
-    const tooltipIcon = document.createElement("span");
-    tooltipIcon.textContent = " (?)";
+    const tooltipIcon = this.shadowRoot.querySelector("span");
 
     // show tooltip on icon hover
     tooltipIcon.addEventListener("mouseenter", this._showTooltip.bind(this));
@@ -23,7 +41,7 @@ class Tooltip extends HTMLElement {
     // hide tooltip icon on mouse leave
     tooltipIcon.addEventListener("mouseleave", this._hideTooltip.bind(this));
 
-    this.appendChild(tooltipIcon);
+    this.shadowRoot.appendChild(tooltipIcon);
   }
 
   /**
@@ -46,8 +64,8 @@ class Tooltip extends HTMLElement {
    */
   _showTooltip() {
     this._tooltipContainer = document.createElement("div");
-    this._tooltipContainer.textContent = "This is the tooltip text!!!";
-    this.appendChild(this._tooltipContainer);
+    this._tooltipContainer.textContent = this._tooltipText; // set tooltip text attribute to tooltipContainer
+    this.shadowRoot.appendChild(this._tooltipContainer);
   }
 
   /**
@@ -55,7 +73,7 @@ class Tooltip extends HTMLElement {
    * @private
    */
   _hideTooltip() {
-    this.removeChild(this._tooltipContainer);
+    this.shadowRoot.removeChild(this._tooltipContainer);
   }
 }
 

@@ -8,6 +8,19 @@
   <title>Document</title>
 </head>
 <body>
-  <p><v-tooltip>web components</v-tooltip> are awesome!</p> 
+  <template id="tooltip-template">
+    <slot></slot>
+    <span>(?)</span>
+  </template>
+
+
+  
+  <p>
+    <v-tooltip text="COMPONENTS ARE AWSOME">web components</v-tooltip>
+    are awesome!
+  </p> 
+  
+  
+  <p><v-tooltip>Seconds</v-tooltip></p> 
 </body>
 </html>
