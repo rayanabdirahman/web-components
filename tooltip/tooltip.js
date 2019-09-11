@@ -39,6 +39,7 @@ class Tooltip extends HTMLElement {
 
         :host {
           background-color: pink;
+          position: relative;
         }
 
 
@@ -136,6 +137,7 @@ class Tooltip extends HTMLElement {
     }
   }
 
+  // Updates DOM
   _render() {
     let tooltipContainer = this.shadowRoot.querySelector("div");
     if (this._isTooltipVisible) {
