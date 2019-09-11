@@ -6,6 +6,12 @@ class Modal extends HTMLElement {
     // Attach open shadow DOM
     this.attachShadow({ mode: "open" });
 
+    /**
+     * check if modal is opened
+     * @type { boolean } isOpened - false by default
+     */
+    this.isOpened = false;
+
     // Set HTML markup
     this.shadowRoot.innerHTML = `
       <style>
@@ -17,6 +23,8 @@ class Modal extends HTMLElement {
           height: 100vh;
           background-color: rgba(0,0,0,0.75);
           z-index: 10;
+          opacity: 0;
+          pointer-events: none;
         }
 
         #modal {
@@ -31,6 +39,14 @@ class Modal extends HTMLElement {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        :host([opened])  #backdrop,
+        :host([opened])  #modal {
+          opacity: 1;
+          pointer-events: all;
         }
 
         header {
@@ -83,6 +99,29 @@ class Modal extends HTMLElement {
   // Element is removed from DOM
   disconnectedCallback() {
     console.log("disconnected");
+  }
+
+  /**
+   * Listens for attribute changes
+   * @param { string } name - name of attribute
+   * @param { string } oldValue - old value of attribute
+   * @param { string } newValue - new value of attribute
+   */
+  attributesChangedCallback(name, oldValue, newValue) {
+    if (this.hasAttribute("opened")) {
+      this.isOpened = true;
+    } else {
+      this.isOpened = false;
+    }
+  }
+
+  static get observedAttributes() {
+    return ["opened"];
+  }
+
+  open() {
+    this.setAttribute("opened", "");
+    this.isOpened = true;
   }
 }
 

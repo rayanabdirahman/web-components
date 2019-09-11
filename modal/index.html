@@ -29,10 +29,18 @@
 
 
   <p>Please confirm your choice</p>
-  <button>Show details & confirm</button>
+  <button class="confirmBtn">Show details & confirm</button>
 
 
 
-
+  <script>
+    const confirmBtn = document.querySelector('.confirmBtn');
+    const modalElem = document.querySelector('v-modal');
+    confirmBtn.addEventListener('click', () => {
+      console.log('button clicked');
+      modalElem.open();
+      console.log(modalElem.isOpened);
+    })
+  </script>
 </body>
 </html>
