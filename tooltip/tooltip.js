@@ -15,6 +15,15 @@ class Tooltip extends HTMLElement {
     // append template to shadow DOM
     this.shadowRoot.innerHTML = `
       <style>
+        :host(.dark) {
+          background-color: grey;
+        }
+
+        :host {
+          background-color: pink;
+        }
+
+
         div {
           background-color: black;
           width: 150px;
@@ -22,9 +31,25 @@ class Tooltip extends HTMLElement {
           position: absolute;
           z-index: 10px;
         }
+
+        // ::slotted(.highlight) {
+        //   background-color: orange;
+        // }
+
+        .icon {
+          background-color: black;
+          color: white;
+          padding: 0.25rem 0.5rem;;
+          text-align: center;
+          border-radius: 50%;
+        }
+
+        .icon:hover {
+          cursor: pointer;
+        }
       </style>
       <slot></slot>
-      <span>(?)</span>
+      <span class="icon">?</span>
     `;
   }
 
