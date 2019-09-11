@@ -12,11 +12,20 @@ class Tooltip extends HTMLElement {
     // attach shadow DOM
     this.attachShadow({ mode: "open" });
 
-    // get tooltip template
-    const template = document.querySelector("#tooltip-template");
-
     // append template to shadow DOM
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.shadowRoot.innerHTML = `
+      <style>
+        div {
+          background-color: black;
+          width: 150px;
+          color: white;
+          position: absolute;
+          z-index: 10px;
+        }
+      </style>
+      <slot></slot>
+      <span>(?)</span>
+    `;
   }
 
   /**
