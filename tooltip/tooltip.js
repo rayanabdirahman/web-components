@@ -84,8 +84,6 @@ class Tooltip extends HTMLElement {
 
     // hide tooltip icon on mouse leave
     tooltipIcon.addEventListener("mouseleave", this._hideTooltip.bind(this));
-
-    this.shadowRoot.appendChild(tooltipIcon);
   }
 
   /**
@@ -96,11 +94,26 @@ class Tooltip extends HTMLElement {
     console.log("REMOVED!!1");
   }
 
+  static get observedAttributes() {
+    return ["text"];
+  }
+
   /**
    * Listens for attribute changes on Elememnt
    * Used to update data or DOM
    */
-  attributesChangedCallback() {}
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.table(name, oldValue, newValue);
+    // check if oldValue is equal to newValue
+    if (oldValue === newValue) {
+      return;
+    }
+
+    // check if name attribute has changed
+    if (name === "text") {
+      this._tooltipText = newValue;
+    }
+  }
 
   /**
    * @description Show tooltip container
