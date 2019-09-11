@@ -7,9 +7,17 @@
   <script src="tooltip/tooltip.js"></script>
   <title>Document</title>
 </head>
+  <style>
+    :root {
+      --font-color-primary: #333;
+      --tooltip-content-background-color: #333;
+      --tooltip-icon-background-color: #333;
+    }
+  
+  </style>
 <body>
   <p>
-    <v-tooltip class="dark" text="COMPONENTS ARE AWSOME">
+    <v-tooltip class="dark" text="tooltip component content">
       <span class="highlight">
         web components
       </span>
@@ -17,7 +25,5 @@
     are awesome!
   </p> 
   
-  
-  <p><v-tooltip>Seconds</v-tooltip></p> 
 </body>
 </html>

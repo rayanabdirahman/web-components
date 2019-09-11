@@ -19,27 +19,37 @@ class Tooltip extends HTMLElement {
           background-color: grey;
         }
 
+        :host-context(p) {
+          font-weight: bold;
+        }
+
         :host {
           background-color: pink;
         }
 
 
         div {
-          background-color: black;
+          font-weight: normal;
+          background-color: var(--tooltip-content-background-color, red);
           width: 150px;
           color: white;
           position: absolute;
+          top: 1.5rem;
+          left: 0.75rem;
           z-index: 10px;
+          padding: 0.15rem;
+          border-radius: 3px;
+          box-shadow: 1px 1px 6px rgba(0,0,0,0.25);
         }
 
-        // ::slotted(.highlight) {
-        //   background-color: orange;
-        // }
+        ::slotted(.highlight) {
+          background-color: orange;
+        }
 
         .icon {
-          background-color: black;
+          background-color: var(--tooltip-icon-background-color);
           color: white;
-          padding: 0.25rem 0.5rem;;
+          padding: 5px 10px;
           text-align: center;
           border-radius: 50%;
         }
