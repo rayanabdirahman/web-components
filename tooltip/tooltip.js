@@ -4,13 +4,24 @@ class Tooltip extends HTMLElement {
    */
   constructor() {
     super();
-    this._tooltipContainer;
 
-    // set default values for element attributes
+    /**
+     * set default values for element attributes
+     * @type { string } - Text attribute needs to be set on element
+     */
     this._tooltipText = "Text attribute needs to be set on element";
 
-    // define tooltip icon
+    /**
+     * define tooltip icon
+     * @type { HTMLSpanElement }
+     */
     this._tooltipIcon;
+
+    /**
+     * determins tooltip visibility
+     * @type { boolean } - false
+     */
+    this._isTooltipVisible = false;
 
     // attach shadow DOM
     this.attachShadow({ mode: "open" });
@@ -125,14 +136,26 @@ class Tooltip extends HTMLElement {
     }
   }
 
+  _render() {
+    let tooltipContainer = this.shadowRoot.querySelector("div");
+    if (this._isTooltipVisible) {
+      tooltipContainer = document.createElement("div");
+      tooltipContainer.textContent = this._tooltipText; // set tooltip text attribute to tooltipContainer
+      this.shadowRoot.appendChild(tooltipContainer);
+    } else {
+      if (tooltipContainer) {
+        this.shadowRoot.removeChild(tooltipContainer);
+      }
+    }
+  }
+
   /**
    * @description Show tooltip container
    * @private
    */
   _showTooltip() {
-    this._tooltipContainer = document.createElement("div");
-    this._tooltipContainer.textContent = this._tooltipText; // set tooltip text attribute to tooltipContainer
-    this.shadowRoot.appendChild(this._tooltipContainer);
+    this._isTooltipVisible = true;
+    this._render();
   }
 
   /**
@@ -140,7 +163,8 @@ class Tooltip extends HTMLElement {
    * @private
    */
   _hideTooltip() {
-    this.shadowRoot.removeChild(this._tooltipContainer);
+    this._isTooltipVisible = false;
+    this._render();
   }
 }
 
