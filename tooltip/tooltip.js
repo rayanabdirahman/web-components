@@ -83,8 +83,6 @@ class Tooltip extends HTMLElement {
    * Use for DOM initialisation
    */
   connectedCallback() {
-    console.log("Attached");
-
     // Get Element text attributes
     if (this.hasAttribute("text")) {
       // override default value for text attribute
@@ -125,7 +123,6 @@ class Tooltip extends HTMLElement {
    * Used to update data or DOM
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    console.table(name, oldValue, newValue);
     // check if oldValue is equal to newValue
     if (oldValue === newValue) {
       return;
