@@ -29,7 +29,7 @@ class Modal extends HTMLElement {
 
         #modal {
           position: fixed;
-          top: 15vh;
+          top: 10vh;
           left: 25%;
           width: 50%;
           z-index: 999;
@@ -41,12 +41,18 @@ class Modal extends HTMLElement {
           justify-content: space-between;
           opacity: 0;
           pointer-events: none;
+          transition: all 0.3s ease-out;
         }
 
         :host([opened])  #backdrop,
         :host([opened])  #modal {
           opacity: 1;
           pointer-events: all;
+        }
+
+        // add transitions
+        :host([opened])  #modal {
+          top: 15vh;
         }
 
         ::slotted(h1) {
