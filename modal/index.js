@@ -89,17 +89,23 @@ class Modal extends HTMLElement {
           <slot name="content"></slot>
         </section>
         <section id="actions">
-          <button>Cancel</button>
-          <button>Confirm</button>
+          <button id="cancelBtn">Cancel</button>
+          <button id="confirmBtn">Confirm</button>
         </section>
       </div>
     `;
 
     // Add event listener to slots
     const slots = this.shadowRoot.querySelectorAll("slot");
+    const confirmBtn = this.shadowRoot.querySelector("#confirmBtn");
+    const cancelBtn = this.shadowRoot.querySelector("#cancelBtn");
+
     slots[1].addEventListener("slotchange", event => {
       console.table(slots[1]);
     });
+
+    cancelBtn.addEventListener("click", this._cancel.bind(this));
+    confirmBtn.addEventListener("click", this._confirm.bind(this));
   }
 
   // Element is attached to DOM
@@ -133,6 +139,19 @@ class Modal extends HTMLElement {
   open() {
     this.setAttribute("opened", "");
     this.isOpened = true;
+  }
+
+  hide() {
+    this.removeAttribute("opened");
+    this.isOpened = false;
+  }
+
+  _cancel() {
+    this.hide();
+  }
+
+  _confirm() {
+    this.hide();
   }
 }
 
