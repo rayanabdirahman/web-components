@@ -49,6 +49,11 @@ class Modal extends HTMLElement {
           pointer-events: all;
         }
 
+        ::slotted(h1) {
+          font-size: 1.25rem;
+          color: red;
+        }
+
         header {
           border-bottom: 1px solid #ccc;
         }
@@ -78,10 +83,10 @@ class Modal extends HTMLElement {
       <div id="backdrop"></div>
       <div id="modal">
         <header>
-          <h1>Please Confirm</h1>
+          <slot name="title">Please confirm payments</slot>
         </header>
         <section id="main">
-          <slot></slot>
+          <slot name="content"></slot>
         </section>
         <section id="actions">
           <button>Cancel</button>
@@ -89,6 +94,12 @@ class Modal extends HTMLElement {
         </section>
       </div>
     `;
+
+    // Add event listener to slots
+    const slots = this.shadowRoot.querySelectorAll("slot");
+    slots[1].addEventListener("slotchange", event => {
+      console.table(slots[1]);
+    });
   }
 
   // Element is attached to DOM
