@@ -99,6 +99,7 @@ class Modal extends HTMLElement {
     const slots = this.shadowRoot.querySelectorAll("slot");
     const confirmBtn = this.shadowRoot.querySelector("#confirmBtn");
     const cancelBtn = this.shadowRoot.querySelector("#cancelBtn");
+    const backdrop = this.shadowRoot.querySelector("#backdrop");
 
     slots[1].addEventListener("slotchange", event => {
       console.table(slots[1]);
@@ -106,6 +107,7 @@ class Modal extends HTMLElement {
 
     cancelBtn.addEventListener("click", this._cancel.bind(this));
     confirmBtn.addEventListener("click", this._confirm.bind(this));
+    backdrop.addEventListener("click", this._cancel.bind(this));
   }
 
   // Element is attached to DOM
