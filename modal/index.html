@@ -36,12 +36,21 @@
 
   <script>
     const openModalBtn = document.querySelector('.openModalBtn');
-    const modalElem = document.querySelector('v-modal');
+    const modal = document.querySelector('v-modal');
     openModalBtn.addEventListener('click', () => {
       console.log('button clicked');
-      modalElem.open();
-      console.log(modalElem.isOpened);
-    })
+      modal.open();
+      console.log(modal.isOpened);
+    });
+
+
+    modal.addEventListener('cancel', () => {
+      console.log('Cancelllled');
+    });
+
+    modal.addEventListener('confirm', () => {
+      console.log('Confirming');
+    });
   </script>
 </body>
 </html>
